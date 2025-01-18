@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CSV Analysis with Gemini</title>
+  <!-- Link to your CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>CSV Analysis Tool</h1>
+      <p>Upload your CSV file for instant analysis using Google Gemini AI</p>
+    </header>
+
+    <main>
+      <div class="upload-section" id="dropZone">
+        <i class="fas fa-cloud-upload-alt"></i>
+        <p>Drag & drop your CSV file here or</p>
+        <label for="fileInput" class="upload-btn">Choose File</label>
+        <input type="file" id="fileInput" accept=".csv" hidden/>
+        <p id="fileName" class="file-name"></p>
+      </div>
+
+      <div class="instructions-section">
+        <button id="toggleInstructions" class="btn secondary">
+          <i class="fas fa-cog"></i> Customize AI Instructions
+        </button>
+        <div id="instructionsEditor" class="hidden">
+          <textarea id="systemInstructions" rows="4" placeholder="Enter custom instructions for the AI model..."></textarea>
+        </div>
+      </div>
+
+      <!-- New Prompt Section -->
+      <div class="prompt-section">
+        <label for="userPrompt" class="prompt-label">Enter Your Prompt:</label>
+        <textarea id="userPrompt" rows="4" placeholder="Type your specific query or instructions for the analysis..."></textarea>
+      </div>
+      
+
+      <button id="analyzeBtn" class="btn primary" disabled>
+        <i class="fas fa-robot"></i> Analyze with AI
+      </button>
+
+      <div id="loadingSpinner" class="spinner hidden">
+        <div class="bounce1"></div>
+        <div class="bounce2"></div>
+        <div class="bounce3"></div>
+      </div>
+
+      <div id="resultSection" class="hidden">
+        <div class="result-header">
+          <h2>Analysis Results</h2>
+          <div class="action-buttons">
+            <button onclick="shareResults()" class="btn secondary">
+              <i class="fas fa-share-alt"></i> Share
+            </button>
+            <button onclick="printResults()" class="btn secondary">
+              <i class="fas fa-print"></i> Print
+            </button>
+            <button onclick="restart()" class="btn secondary">
+              <i class="fas fa-redo"></i> Restart
+            </button>
+          </div>
+        </div>
+        <div id="analysisResult" class="result-content"></div>
+      </div>
+    </main>
+
+    <div id="errorToast" class="toast hidden">
+      <i class="fas fa-exclamation-circle"></i>
+      <span id="errorMessage"></span>
+    </div>
+  </div>
+
+  <!-- Marked for Markdown support -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <!-- Your custom JS -->
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
